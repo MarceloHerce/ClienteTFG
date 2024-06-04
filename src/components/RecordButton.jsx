@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AppContext } from '../context/AppContext';
+
 
 function ScreenRecorder() {
   const [recording, setRecording] = useState(false);
@@ -7,6 +9,8 @@ function ScreenRecorder() {
   const [combinedStream, setCombinedStream] = useState(null);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [recordedChunks, setRecordedChunks] = useState([]);
+  const { jwt  } = useContext(AppContext);
+  const token = jwt
 
   const startRecording = async () => {
     try {
@@ -49,6 +53,7 @@ function ScreenRecorder() {
   const downloadRecording = () => {
     const blob = new Blob(recordedChunks, { type: 'video/webm' });
     const url = URL.createObjectURL(blob);
+    console.log(blob)
     const a = document.createElement('a');
     document.body.appendChild(a);
     a.style = 'display: none';
@@ -57,6 +62,30 @@ function ScreenRecorder() {
     a.click();
     window.URL.revokeObjectURL(url);
     setRecordedChunks([]);
+  };
+
+  const uploadRecording = async () => {
+    try {
+      const blob = new Blob(recordedChunks, { type: 'video/webm' });
+      const formData = new FormData();
+      formData.append('file', blob, 'recording.webm');
+  
+      const response = await fetch('http://localhost:8080/blob/uploadVideo', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + jwt,
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to upload recording');
+      }
+  
+      console.log('Recording uploaded successfully');
+      setRecordedChunks([]);
+    } catch (error) {
+      console.error('Error uploading recording:', error);
+    }
   };
 
   return (

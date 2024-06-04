@@ -1,0 +1,25 @@
+label {
+    display: block;
+}
+input, select{
+    width: 100%;
+}
+.formBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.formBody span {
+    display: block;
+    color: tomato;
+    font-size: small;
+}
+.formBody {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.a{
+    width: 100%;
+}

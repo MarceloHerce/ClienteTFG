@@ -4,7 +4,7 @@ import { createContext, useState } from "react";
 export const AppContext = createContext();
 
 export function AppContextProvider({children}) {
-    const [jwt, setJwt] = useState("Soy el jwt context");
+    const [jwt, setJwt] = useState(undefined);
     return (
         <AppContext.Provider value ={
                 {
