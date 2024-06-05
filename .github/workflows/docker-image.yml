@@ -36,8 +36,9 @@ jobs:
 
       - name: Build and push Docker image for React app
         run: |
-          docker build -t marcelo20/resultadosmaster:react-app-v.0.4 -f Dockerfile .
-          docker push marcelo20/resultadosmaster:react-app-v.0.4
+          docker build -t marcelo20/screenRecorder:react-app-v.0.4 -t marcelo20/screenRecorder:latest -f Dockerfile .
+          docker push marcelo20/screenRecorder:react-app-v.0.4
+          docker push marcelo20/screenRecorder:latest
 
       # Deploy to Kubernetes
       # - name: Configure kubectl
