@@ -1,0 +1,50 @@
+name: Client TFG
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Print repository status
+        run: |
+          git log -1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build
+
+      # Build and Push Image to Docker Hub
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKERPASSWORD }}" | docker login -u marcelo20 --password-stdin
+
+      - name: Build and push Docker image for React app
+        run: |
+          docker build -t marcelo20/resultadosmaster:react-app-v.0.4 -f Dockerfile .
+          docker push marcelo20/resultadosmaster:react-app-v.0.4
+
+      # Deploy to Kubernetes
+      # - name: Configure kubectl
+      #   uses: azure/k8s-set-context@v1
+      #   with:
+      #     kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      # - name: Apply Kubernetes manifests
+      #   run: |
+      #     kubectl apply -f k8s-deployment.yaml -n resultados-space
