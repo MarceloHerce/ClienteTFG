@@ -1,7 +1,7 @@
 import "./css/RegisterForm.css";
 
 import { FormProvider, useForm } from 'react-hook-form';
-
+const apiUrl = import.meta.env.VITE_APP_USERAPI;
 function RegisterForm(){
 
     const methods = useForm();
@@ -19,7 +19,7 @@ function RegisterForm(){
             };
             console.log(data)
             console.log(convertedData)
-            fetch('http://localhost:8080/auth/register', {
+            fetch(`${apiUrl}/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

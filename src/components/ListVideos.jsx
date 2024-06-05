@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
+const apiUrl = import.meta.env.VITE_APP_USERAPI;
 function VideoList() {
     const [videos, setVideos] = useState([]);
     const [metadata, setMetadata] = useState({});
@@ -12,7 +13,7 @@ function VideoList() {
 
     const fetchVideos = async () => {
         try {
-            const response = await fetch('http://localhost:8080/get/media/user', {
+            const response = await fetch(`${apiUrl}/get/media/user`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${jwt}`,
@@ -48,7 +49,7 @@ function VideoList() {
     };
     const deleteBlob = async (storageFileName) => {
         try {
-            const response = await fetch(`http://localhost:8080/blob?fileName=${storageFileName}`, {
+            const response = await fetch(`${apiUrl}/blob?fileName=${storageFileName}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${jwt}`,

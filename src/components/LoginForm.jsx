@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
-
+const apiUrl = import.meta.env.VITE_APP_USERAPI;
 function LoginForm({ onLoginSuccess }){
     const { jwt, setJwt  } = useContext(AppContext);
     const methods = useForm();
@@ -25,7 +25,7 @@ function LoginForm({ onLoginSuccess }){
             };
             console.log(data)
             console.log(convertedData)
-            fetch('http://localhost:8080/auth/login', {
+            fetch(`${apiUrl}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

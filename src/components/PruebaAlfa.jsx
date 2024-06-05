@@ -3,7 +3,7 @@ import { AppContext } from '../context/AppContext';
 import {jwtDecode} from 'jwt-decode';
 
 const CHUNK_SIZE = 1024 * 1024 * 3; // 3MB
-
+const apiUrl = import.meta.env.VITE_APP_USERAPI;
 const Desesperao = () => {
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [chunkSizes, setChunkSizes] = useState([]);
@@ -88,7 +88,7 @@ const Desesperao = () => {
   };
   const getStorageName = async () => {
     try {
-      const response = await fetch('http://localhost:8080/media/name', {
+      const response = await fetch(`${apiUrl}/media/name`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${jwt}`,
@@ -125,7 +125,7 @@ const Desesperao = () => {
       formData.append('fileName', uniqueFileName);
       formData.append('index', i);
 
-      const response = await fetch('http://localhost:8080/upload/media/upload-chunk', {
+      const response = await fetch(`${apiUrl}/upload/media/upload-chunk`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${jwt}`,
@@ -164,7 +164,7 @@ const Desesperao = () => {
     commitFormData.append('metadata', JSON.stringify(metadata))
     commitFormData.append('blockList', JSON.stringify(blockList));
 
-    const commitResponse = await fetch('http://localhost:8080/upload/media/commit-blocks', {
+    const commitResponse = await fetch(`${apiUrl}/upload/media/commit-blocks`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${jwt}`,

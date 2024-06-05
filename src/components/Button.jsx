@@ -3,6 +3,8 @@ import { AppContext } from '../context/AppContext';
 import "./css/RegisterForm.css"
 import { jwtDecode } from "jwt-decode";
 
+const apiUrl = import.meta.env.VITE_APP_USERAPI;
+
 function CaptureScreen() {
   const [stream, setStream] = useState(null);
   const [mediaRecorder, setMediaRecorder] = useState(null);
@@ -79,7 +81,7 @@ function CaptureScreen() {
     });
   
     try {
-      const response = await fetch('http://localhost:8080/blob/uploadVideo', {
+      const response = await fetch(`${apiUrl}/blob/uploadVideo`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -105,7 +107,7 @@ function CaptureScreen() {
       const formData = new FormData();
       formData.append('file', holaCHU, 'recording.webm');
       const token = jwt;
-      const response = await fetch('http://localhost:8080/blob/getVideo', {
+      const response = await fetch(`${apiUrl}/blob/getVideo`, {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + token,
@@ -142,7 +144,7 @@ function CaptureScreen() {
         console.log(`${key}: ${value}`);
       }
   
-      const response = await fetch('http://localhost:8080/media/chunk', {
+      const response = await fetch(`${apiUrl}/media/chunk`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -173,7 +175,7 @@ function CaptureScreen() {
       }
   
       // Enviar los blockIds al endpoint de commit
-      const commitResponse = await fetch('http://localhost:8080/media/commit', {
+      const commitResponse = await fetch(`${apiUrl}/media/commit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
