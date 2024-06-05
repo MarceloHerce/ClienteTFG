@@ -19,7 +19,7 @@ function HomeText({ openModal }) {
   });
 
   const handleClick = () => {
-    if (jwt === undefined) {
+    if (!jwt) {
       openModal();
     } else {
       console.log('Start Screen Recording');
@@ -60,7 +60,7 @@ function HomeText({ openModal }) {
           onClick={handleClick}
           className="bg-teal-500 text-white font-bold py-2 px-6 rounded hover:bg-teal-600 focus:outline-none focus:ring-2 focus:bg-teal-300 focus:ring-opacity-50"
         >
-          {jwt === undefined ? 'Login' : 'Record Screen Now'}
+          {jwt === '' ? 'Login' : 'Record Screen Now'}
         </animated.button>
       </div>
     </div>

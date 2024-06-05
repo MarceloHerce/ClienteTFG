@@ -46,6 +46,28 @@ function VideoList() {
         const queryParams = new URLSearchParams({ sasUrl, fileName });
         return `${baseUrl}?${queryParams.toString()}`;
     };
+    const deleteBlob = async (storageFileName) => {
+        try {
+            const response = await fetch(`http://localhost:8080/blob?fileName=${storageFileName}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${jwt}`,
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.text();
+            console.log(data);
+            try{
+                setVideos(prevVideos => prevVideos.filter(video => video.storageFileName !== storageFileName));
+            } catch (error){
+                console.log(error)
+            }
+        } catch (error) {
+            console.error('Error fetching videos:', error);
+        }
+    }
 
     return (
         <div className="container mx-auto p-6">
@@ -67,9 +89,10 @@ function VideoList() {
                                 onClick={() => navigator.clipboard.writeText(generateShareableLink(video.sasUrl, video.fileName))}
                                 className="mt-2 bg-teal-500 text-white py-1 px-4 rounded"
                             >
-                                Copy Link
-                            </button>
-
+                            Copy Link
+                        </button>
+                        <p>{video.storageFileName}</p>
+                        <button onClick={() => deleteBlob(video.storageFileName)}>Delete</button>
                         {metadata[index] && (
                             <div className="mt-2 text-center text-sm text-gray-600">
                                 <p>Filename: {metadata[index].fileName}</p>

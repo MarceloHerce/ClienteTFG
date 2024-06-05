@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import ErrorPage from "../pages/Error";
@@ -10,10 +10,14 @@ import AboutUs from "../pages/AboutUs";
 import Profile from "../pages/Profile";
 import VideoPlayerPage from "../components/SharedVideo";
 import TestScreenRecorder from "../pages/Testing";
+import Logout from "../components/Logout";
+import { AppContext } from '../context/AppContext';
 
 
 function Root() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { jwt, setJwt} = useContext(AppContext);
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -43,6 +47,11 @@ function Root() {
             <li>
               <Link to="/testing">Test</Link>
             </li>
+            {jwt && (
+              <li>
+                <Logout />
+              </li>
+            )}
           </ul>
         </nav>
       </header>
