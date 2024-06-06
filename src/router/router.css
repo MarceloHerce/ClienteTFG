@@ -1,3 +1,4 @@
+/*
 #header {
     display: flex;
     flex-direction: column;
@@ -68,7 +69,7 @@
     }
   
     nav.open {
-      max-height: 300px; /* Adjust as needed to fit the number of menu items */
+      max-height: 300px; 
       transition: max-height 0.3s ease-in;
     }
   
@@ -84,4 +85,4 @@
       margin: 0.5rem 0;
     }
   }
-  
+  */

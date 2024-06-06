@@ -1,11 +1,18 @@
 //import "./css/RegisterForm.css";
 
 import { FormProvider, useForm } from 'react-hook-form';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const apiUrl = import.meta.env.VITE_APP_USERAPI;
 function LoginForm({ onLoginSuccess }){
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     const { jwt, setJwt  } = useContext(AppContext);
     const methods = useForm();
 
@@ -55,10 +62,10 @@ function LoginForm({ onLoginSuccess }){
 
                 <div className="flex flex-col w-full mb-4">
                     {/*name*/}
-                    <label htmlFor="username" className="self-start mb-1">
+                    <label htmlFor="username" className="self-start mb-1 text-teal-100">
                         Nombre
                     </label>
-                    <input 
+                    <input  className='rounded-sm bg-white text-black'
                         type="text" 
                         { ...methods.register("username", 
                         {
@@ -82,13 +89,22 @@ function LoginForm({ onLoginSuccess }){
                     }
                 </div>
                 
-                <div className="flex flex-col w-full mb-4">
+                <div className="flex flex-col w-full mb-4 text-black">
                     {/*password*/}
-                    <label htmlFor="password" className="self-start mb-1">
-                        Password
-                    </label>
-                    <input 
-                        type="password"
+                    <div className='flex justify-between'>
+                        <label htmlFor="password" className="self-start mb-1 text-teal-100">
+                            Password
+                        </label>
+                        <div
+                        className="relative inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-teal-500"
+                        onClick={togglePasswordVisibility}
+                        >
+                            {showPassword ? <FaEyeSlash className='text-teal-300'/> : <FaEye className='text-teal-300'/>}
+                        </div>
+                    </div>
+                    
+                    <input className='rounded-sm bg-white'
+                        type={showPassword ? 'text' : 'password'}
                         { ...methods.register("password", {
                             required: {
                                 value: true,
@@ -96,6 +112,7 @@ function LoginForm({ onLoginSuccess }){
                             }
                         })}
                     />
+                    
                     {
                         methods.formState.errors.password && <span>{methods.formState.errors.password.message}</span>
                     }
@@ -103,7 +120,7 @@ function LoginForm({ onLoginSuccess }){
                 
                 
 
-                <button type="submit" className='w-2/3'>Send</button>
+                <button type="submit" className='w-2/3 text-teal-200'>Send</button>
             </form>
         </FormProvider>
         

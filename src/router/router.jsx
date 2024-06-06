@@ -12,6 +12,7 @@ import VideoPlayerPage from "../components/SharedVideo";
 import TestScreenRecorder from "../pages/Testing";
 import Logout from "../components/Logout";
 import { AppContext } from '../context/AppContext';
+import DarkLigthMode from "../components/DarkLigth";
 
 
 function Root() {
@@ -26,33 +27,64 @@ function Root() {
 
   return (
     <>
-      <header id="header">
+      <header id="header" className="flex justify-between items-center w-full py-6 px-5 lg:px-64 bg-teal-700">
         <div className="headerBody">
-          <h1>ScreenRecorder</h1>
-          <button className="menu-toggle" onClick={toggleMenu}>
-            ☰
-          </button>
+          <h1 className="font-semibold text-teal-50 text-lg">ScreenRecorder</h1>
         </div>
         <nav className={isMenuOpen ? "open" : ""}>
-          <ul>
-            <li>
-              <Link to="/home">Home</Link>
+          <ul className="hidden md:flex items-center space-x-5">
+            <li >
+              <Link to="/home" className="text-teal-50 hover:text-teal-100">Home</Link>
             </li>
-            <li>
-              <Link to="/aboutUs">About Us</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li>
-              <Link to="/testing">Test</Link>
+            <li >
+              <Link to="/aboutUs" className="text-teal-50 hover:text-teal-100">About Us</Link>
             </li>
             {jwt && (
-              <li>
+              <li >
+              <Link to="/profile" className="text-teal-50 hover:text-teal-100">Profile</Link>
+              </li>
+            )}
+            <li >
+              <Link to="/testing" className="text-teal-50 hover:text-teal-100">Test</Link>
+            </li>
+            {jwt && (
+              <li >
                 <Logout />
               </li>
             )}
           </ul>
+          <button className="menu-toggle space-y-1 group bg-transparent border-0 md:hidden " onClick={toggleMenu}>
+            <div className="w-6 h-1 bg-teal-50"></div>
+            <div className="w-6 h-1 bg-teal-50"></div>
+            <div className="w-6 h-1 bg-teal-50"></div>
+            <ul className="bg-teal-700 w-screen pb-10 absolute -top-full group-focus:top-0 right-0 duration-150
+            flex flex-col space-y-3 justify-end">
+              <button className="px-10 py-8 relative ml-auto bg-transparent border-0">
+                <div className="w-6 h-1 rotate-45 absolute bg-teal-50"></div>
+                <div className="w-6 h-1 -rotate-45 absolute bg-teal-50"></div>
+              </button>
+              <li className="flex justify-center w-full py-4 hover:bg-teal-600">
+                <Link to="/home" className="text-teal-50 hover:text-teal-100">Home</Link>
+              </li>
+              <li className="flex justify-center w-full py-4 hover:bg-teal-600">
+                <Link to="/aboutUs" className="text-teal-50 hover:text-teal-100">About Us</Link>
+              </li>
+              {jwt && (
+                <li className="flex justify-center w-full py-4 hover:bg-teal-600">
+                <Link to="/profile" className="text-teal-50 hover:text-teal-100">Profile</Link>
+                </li>
+              )}
+              <li className="flex justify-center w-full py-4 hover:bg-teal-600">
+                <Link to="/testing" className="text-teal-50 hover:text-teal-100">Test</Link>
+              </li>
+              {jwt && (
+                <li className="flex justify-center w-full py-4 hover:bg-teal-600">
+                  <Logout />
+                </li>
+              )}
+            </ul>
+            
+          </button>
         </nav>
       </header>
       <div id="detail">

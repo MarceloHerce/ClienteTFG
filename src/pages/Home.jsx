@@ -29,7 +29,7 @@ function Home() {
                   <div className="flex justify-end">
                     <button 
                       onClick={closeModal} 
-                      className="p-2 text-teal-50 hover:text-gray-700"
+                      className="p-2 text-teal-200 border-teal-100 hover:border-teal-700 bg-black"
                     >
                       Close
                     </button>

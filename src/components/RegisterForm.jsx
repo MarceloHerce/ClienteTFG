@@ -1,8 +1,19 @@
-import "./css/RegisterForm.css";
+//import "./css/RegisterForm.css";
 
 import { FormProvider, useForm } from 'react-hook-form';
+import React, { useContext, useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 const apiUrl = import.meta.env.VITE_APP_USERAPI;
 function RegisterForm(){
+    const [showPassword, setShowPassword] = useState({ password: false, confirmPassword: false });
+
+    const togglePasswordVisibility = (field) => {
+        setShowPassword((prevState) => ({
+          ...prevState,
+          [field]: !prevState[field],
+        }));
+      };
 
     const methods = useForm();
 
@@ -40,135 +51,170 @@ function RegisterForm(){
 
     return (
         <FormProvider {...methods}>
-            <form  className="formBody" onSubmit={onSubmit}>
-                {/*name*/}
-                <label htmlFor="username">
-                    Nombre
-                </label>
-                <input 
-                    type="text" 
-                    { ...methods.register("username", 
-                      {
-                        required: {
-                            value: true,
-                            message: "Name is required"
-                        },
-                        minLength: {
-                            value: 4,
-                            message: "Min length 4"
-                        },
-                        maxLength: {
-                            value: 20,
-                            message: "Max lenght 20"
-                        }
-                      })
-                    }
-                />
-                {
-                    methods.formState.errors.username && <span>{methods.formState.errors.username.message}</span>
-                }
-                
-
-                {/*name*/}
-                <label htmlFor="email">
-                    Email
-                </label>
-                <input 
-                    type="email" 
-                    { ...methods.register("email", {
-                        required: {
-                            value: true,
-                            message: "Email is required"
-                        },
-                        pattern: {
-                            value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-                            message: "Email is not valid"
-                        }
-                    })}
-                />
-                {
-                    methods.formState.errors.email && <span>{methods.formState.errors.email.message}</span>
-                }
-
-                {/*password*/}
-                <label htmlFor="password">
-                    Password
-                </label>
-                <input 
-                    type="password"
-                    { ...methods.register("password", {
-                        required: {
-                            value: true,
-                            message: "Password is required"
-                        }
-                    })}
-                />
-                {
-                    methods.formState.errors.password && <span>{methods.formState.errors.password.message}</span>
-                }
-
-                {/*confirmpassword*/}
-                <label htmlFor="confirmPassword">
-                    Confirm Password
-                </label>
-                <input 
-                    type="password" 
-                    { ...methods.register("confirmPassword", {
-                        required: {
-                            value: true,
-                            message: "Password confirm is required"
-                        },
-                        validate: (value) => {
-                            return methods.watch('password') === value || "Password doesn`t macth";
-                        }
-                    })}
-                />
-                {
-                    methods.formState.errors.confirmPassword && <span>{methods.formState.errors.confirmPassword.message}</span>
-                }
-
-                {/*country*/}
-                <label htmlFor="country">
-                    Country
-                </label>
-                <select 
-                    { ...methods.register("country", {
-                        required: {
-                            value: true,
-                            message: "Country is required"
-                        }
-                    })}
-                >
-                    <option
-                    value="es"> Spain
-                    </option>
-                    <option
-                    value="fr"> France
-                    </option>
-                </select>
-                {
-                    methods.formState.errors.country && <span>{methods.formState.errors.country.message}</span>
-                }
-
-                <label htmlFor="confirmTermsAndConditions">
-                    I acccept terms and conditions
-                    <input 
-                        type="checkbox"
-                        { ...methods.register("confirmTermsAndConditions", {
+            <form  className="flex-1 flex-col justify-center items-center" onSubmit={onSubmit}>
+                <div className='flex flex-col w-full mb-4'>
+                    {/*name*/}
+                    <label htmlFor=" text" className='self-start mb-1 text-teal-100'>
+                        Nombre
+                    </label>
+                    <input className='rounded-sm bg-white text-black'
+                        type="text" 
+                        { ...methods.register("username", 
+                        {
                             required: {
                                 value: true,
-                                message: "ConfirmTermsAndConditions is required"
+                                message: "Name is required"
+                            },
+                            minLength: {
+                                value: 4,
+                                message: "Min length 4"
+                            },
+                            maxLength: {
+                                value: 20,
+                                message: "Max lenght 20"
+                            }
+                        })
+                        }
+                    />
+                    {
+                        methods.formState.errors.username && <span>{methods.formState.errors.username.message}</span>
+                    }
+                </div>
+                
+                
+                <div className='flex flex-col w-full mb-4'>
+                    {/*name*/}
+                    <label htmlFor="email" className='self-start mb-1 text-teal-100'>
+                        Email
+                    </label>
+                    <input className='rounded-sm bg-white text-black'
+                        type="email" 
+                        { ...methods.register("email", {
+                            required: {
+                                value: true,
+                                message: "Email is required"
+                            },
+                            pattern: {
+                                value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                                message: "Email is not valid"
+                            }
+                        })}
+                    />
+                    {
+                        methods.formState.errors.email && <span>{methods.formState.errors.email.message}</span>
+                    }
+                </div>
+                
+
+                <div className='flex flex-col w-full mb-4'>
+                    <div className='flex justify-between'>
+                        {/*password*/}
+                        <label htmlFor="password" className='self-start mb-1 text-teal-100'>
+                            Password
+                        </label>
+                        <div
+                        className="relative inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-teal-500"
+                        onClick={() => togglePasswordVisibility('password')}
+                        >
+                            {showPassword.password ? <FaEyeSlash className='text-teal-300'/> : <FaEye className='text-teal-300'/>}
+                        </div>
+                    </div>
+                    
+                    <input className='rounded-sm bg-white text-black'
+                        type={showPassword.password ? 'text' : 'password'}
+                        { ...methods.register("password", {
+                            required: {
+                                value: true,
+                                message: "Password is required"
+                            }
+                        })}
+                    />
+                    {
+                        methods.formState.errors.password && <span>{methods.formState.errors.password.message}</span>
+                    }
+                </div>
+                
+
+                <div className='flex flex-col w-full mb-4'>
+                    <div className='flex justify-between'>
+                        {/*confirmpassword*/}
+                        <label htmlFor="confirmPassword" className='self-start mb-1 text-teal-100'>
+                            Confirm Password
+                        </label>
+                        <div
+                        className="relative inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-teal-500"
+                        onClick={() => togglePasswordVisibility('confirmPassword')}
+                        >
+                            {showPassword.confirmPassword ? <FaEyeSlash className='text-teal-300'/> : <FaEye className='text-teal-300'/>}
+                        </div>
+                        
+                    </div>
+                    <input className='rounded-sm bg-white text-black'
+                            type={showPassword.confirmPassword ? 'text' : 'password'} 
+                            { ...methods.register("confirmPassword", {
+                                required: {
+                                    value: true,
+                                    message: "Password confirm is required"
+                                },
+                                validate: (value) => {
+                                    return methods.watch('password') === value || "Password doesn`t macth";
+                                }
+                            })}
+                    />
+                    {
+                        methods.formState.errors.confirmPassword && <span>{methods.formState.errors.confirmPassword.message}</span>
+                    }
+                </div>
+                
+
+                <div className='flex flex-col w-full mb-4 '>
+                    {/*country*/}
+                    <label htmlFor="country" className='self-start mb-1 text-teal-100'>
+                        Country
+                    </label>
+                    <select 
+                        { ...methods.register("country", {
+                            required: {
+                                value: true,
+                                message: "Country is required"
                             }
                         })}
                     >
-                    </input>
-                </label>
-                {
-                    methods.formState.errors.confirmTermsAndConditions && <span>{methods.formState.errors.confirmTermsAndConditions.message}</span>
-                }
+                        <option
+                        value="es"> Spain
+                        </option>
+                        <option
+                        value="fr"> France
+                        </option>
+                    </select>
+                    {
+                        methods.formState.errors.country && <span>{methods.formState.errors.country.message}</span>
+                    }
+                </div>
                 
 
-                <button type="submit">Send</button>
+                <div className='flex flex-col w-full mb-4'>
+                    <label htmlFor="confirmTermsAndConditions" className='self-start mb-1 text-teal-100 flex justify-center gap-3'>
+                        I acccept terms and conditions
+                        <input className='rounded-sm bg-white w-4 text-black'
+                            type="checkbox"
+                            { ...methods.register("confirmTermsAndConditions", {
+                                required: {
+                                    value: true,
+                                    message: "ConfirmTermsAndConditions is required"
+                                }
+                            })}
+                        >
+                        </input>
+                    </label>
+                    {
+                        methods.formState.errors.confirmTermsAndConditions && <span>{methods.formState.errors.confirmTermsAndConditions.message}</span>
+                    }
+                </div>
+                
+                
+
+                <button type="submit" className='w-2/3 text-teal-200'>Send</button>
             </form>
         </FormProvider>
         
