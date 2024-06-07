@@ -39,18 +39,17 @@ jobs:
       - name: Build and tag Docker image for React app
         run: docker build -t marceloregistry.azurecr.io/screenrecorder:develop -f Dockerfile .
 
+      - name: Verify Docker images
+        run: docker images
+
       - name: Push Docker image to Azure Container Registry
         run: docker push marceloregistry.azurecr.io/screenrecorder:develop
-        
+
+      - name: Verify pushed Docker images
+        run: |
+          echo "Listing images in ACR"
+          az acr repository list --name marceloregistry --output table
+
       - name: Cleanup local Docker images
         run: docker rmi marceloregistry.azurecr.io/screenrecorder:develop
 
-      # Deploy to Kubernetes
-      # - name: Configure kubectl
-      #   uses: azure/k8s-set-context@v1
-      #   with:
-      #     kubeconfig: ${{ secrets.KUBE_CONFIG }}
-
-      # - name: Apply Kubernetes manifests
-      #   run: |
-      #     kubectl apply -f k8s-deployment.yaml -n resultados-space
