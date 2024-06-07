@@ -30,6 +30,7 @@ jobs:
         run: npm run build
 
       # Log in to Azure Container Registry using Docker
+      - uses: actions/checkout@v3
       - uses: azure/docker-login@v1
         with:
           login-server: marceloregistry.azurecr.io
