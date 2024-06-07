@@ -1,10 +1,11 @@
-name: Client TFG
+name: Client TFG develop
 
 on:
   push:
     branches: ['develop']
   pull_request:
     branches: ['develop']
+  workflow_dispatch:
 
 jobs:
   build:
@@ -30,14 +31,20 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      # Build and Push Image to Docker Hub
-      - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKERPASSWORD }}" | docker login -u marcelo20 --password-stdin
+      # Build and Push Image to Azure Container Registry
+      - name: Log in to Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Build and push Docker image for React app
-        run: |
-          docker build -t marcelo20/screenrecorder:develop -f Dockerfile .
-          docker push marcelo20/screenrecorder:develop
+      - name: Log in to Azure Container Registry
+        run: az acr login --name marceloregistry.azurecr.io
+
+      - name: Build and tag Docker image for React app
+        run: docker build -t marceloregistry.azurecr.io/screenrecorder:develop -f Dockerfile .
+
+      - name: Push Docker image to Azure Container Registry
+        run: docker push marceloregistry.azurecr.io/screenrecorder:develop
 
       # Deploy to Kubernetes
       # - name: Configure kubectl
