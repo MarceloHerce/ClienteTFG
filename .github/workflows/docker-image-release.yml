@@ -1,0 +1,65 @@
+name: Client TFG release
+
+on:
+  push:
+    branches: ['release']
+  pull_request:
+    branches: ['release']
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Print repository status
+        run: git log -1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build
+
+      # Log in to Azure Container Registry using Docker
+      - uses: actions/checkout@v3
+      - uses: azure/docker-login@v1
+        with:
+          login-server: marceloregistry.azurecr.io
+          username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
+          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+
+      - name: Build and tag Docker image for React app
+        run: docker build -t marceloregistry.azurecr.io/screenrecorder:release -f Dockerfile .
+
+      - name: Verify Docker images
+        run: docker images
+
+      - name: Push Docker image to Azure Container Registry
+        run: docker push marceloregistry.azurecr.io/screenrecorder:release
+
+      - name: Verify pushed Docker images
+        run: |
+          echo "Listing images in ACR"
+          az acr repository list --name marceloregistry --output table
+
+      - name: Cleanup local Docker images
+        run: docker rmi marceloregistry.azurecr.io/screenrecorder:release
+
+      # Deploy to Kubernetes
+      # - name: Configure kubectl
+      #   uses: azure/k8s-set-context@v1
+      #   with:
+      #     kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      # - name: Apply Kubernetes manifests
+      #   run: |
+      #     kubectl apply -f k8s-deployment.yaml -n resultados-space
