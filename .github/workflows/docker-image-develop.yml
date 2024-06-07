@@ -9,7 +9,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -17,8 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Print repository status
-        run: |
-          git log -1
+        run: git log -1
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -31,14 +29,9 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      # Build and Push Image to Azure Container Registry
-      - name: Log in to Azure CLI
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
+      # Log in to Azure Container Registry using Docker
       - name: Log in to Azure Container Registry
-        run: az acr login --name marceloregistry
+        run: echo "${{ secrets.AZURE_REGISTRY_PASSWORD }}" | docker login marceloregistry.azurecr.io -u ${{ secrets.AZURE_REGISTRY_USERNAME }} --password-stdin
 
       - name: Build and tag Docker image for React app
         run: docker build -t marceloregistry.azurecr.io/screenrecorder:develop -f Dockerfile .
