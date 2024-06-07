@@ -30,7 +30,6 @@ jobs:
         run: npm run build
 
       # Log in to Azure Container Registry using Docker
-      - uses: actions/checkout@v3
       - uses: azure/docker-login@v1
         with:
           login-server: marceloregistry.azurecr.io
@@ -40,17 +39,9 @@ jobs:
       - name: Build and tag Docker image for React app
         run: docker build -t marceloregistry.azurecr.io/screenrecorder:develop -f Dockerfile .
 
-      - name: Verify Docker images
-        run: docker images
-
       - name: Push Docker image to Azure Container Registry
         run: docker push marceloregistry.azurecr.io/screenrecorder:develop
-
-      - name: Verify pushed Docker images
-        run: |
-          echo "Listing images in ACR"
-          az acr repository list --name marceloregistry --output table
-
+        
       - name: Cleanup local Docker images
         run: docker rmi marceloregistry.azurecr.io/screenrecorder:develop
 
