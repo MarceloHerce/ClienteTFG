@@ -64,18 +64,18 @@ function Root() {
                 <div className="w-6 h-1 -rotate-45 absolute bg-teal-50"></div>
               </button>
               <li className="flex justify-center w-full py-4 hover:bg-teal-600">
-                <Link to="/home" className="text-teal-50 hover:text-teal-100">Home</Link>
+                <Link to="/home" className="w-full text-teal-50 hover:text-teal-100">Home</Link>
               </li>
               <li className="flex justify-center w-full py-4 hover:bg-teal-600">
-                <Link to="/aboutUs" className="text-teal-50 hover:text-teal-100">About Us</Link>
+                <Link to="/aboutUs" className="w-full text-teal-50 hover:text-teal-100">About Us</Link>
               </li>
               {jwt && (
                 <li className="flex justify-center w-full py-4 hover:bg-teal-600">
-                <Link to="/profile" className="text-teal-50 hover:text-teal-100">Profile</Link>
+                <Link to="/profile" className="w-full text-teal-50 hover:text-teal-100">Profile</Link>
                 </li>
               )}
               <li className="flex justify-center w-full py-4 hover:bg-teal-600">
-                <Link to="/testing" className="text-teal-50 hover:text-teal-100">Test</Link>
+                <Link to="/testing" className="w-full text-teal-50 hover:text-teal-100">Test</Link>
               </li>
               {jwt && (
                 <li className="flex justify-center w-full py-4 hover:bg-teal-600">

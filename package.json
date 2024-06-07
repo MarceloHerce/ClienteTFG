@@ -11,13 +11,17 @@
   },
   "dependencies": {
     "@react-oauth/google": "^0.12.1",
+    "@react-spring/three": "^9.7.3",
     "@react-spring/web": "^9.7.3",
+    "@react-three/drei": "^9.106.0",
+    "@react-three/fiber": "^8.16.8",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.4",
     "react-icons": "^5.2.1",
-    "react-router-dom": "^6.23.0"
+    "react-router-dom": "^6.23.0",
+    "three": "^0.165.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
