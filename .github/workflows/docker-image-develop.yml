@@ -27,7 +27,7 @@ jobs:
         run: npm run build
 
       - name: Log in to Azure Container Registry using Docker
-      - uses: azure/docker-login@v1
+        uses: azure/docker-login@v1
         with:
           login-server: marceloregistry.azurecr.io
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
