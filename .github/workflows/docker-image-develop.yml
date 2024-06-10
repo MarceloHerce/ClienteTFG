@@ -1,0 +1,47 @@
+name: Client TFG develop
+
+on:
+  push:
+    branches: ['develop']
+  pull_request:
+    branches: ['develop']
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Log in to Azure Container Registry using Docker
+      - uses: azure/docker-login@v1
+        with:
+          login-server: marceloregistry.azurecr.io
+          username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
+          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+
+      - name: Build and tag Docker image for React app
+        run: docker build -t marceloregistry.azurecr.io/screenrecorder:develop -f Dockerfile .
+
+      - name: Verify Docker images
+        run: docker images
+
+      - name: Push Docker image to Azure Container Registry
+        run: docker push marceloregistry.azurecr.io/screenrecorder:develop
+
+      - name: Cleanup local Docker images
+        run: docker rmi marceloregistry.azurecr.io/screenrecorder:develop
+

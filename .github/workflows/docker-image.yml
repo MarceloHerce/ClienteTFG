@@ -5,6 +5,7 @@ on:
     branches: ['main']
   pull_request:
     branches: ['main']
+  workflow_dispatch:
 
 jobs:
   build:
@@ -30,21 +31,21 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      # Build and Push Image to Docker Hub
-      - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKERPASSWORD }}" | docker login -u marcelo20 --password-stdin
+      - name: Log in to Azure Container Registry using Docker
+      - uses: azure/docker-login@v1
+        with:
+          login-server: marceloregistry.azurecr.io
+          username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
+          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
 
-      - name: Build and push Docker image for React app
-        run: |
-          docker build -t marcelo20/screenrecorder:latest -f Dockerfile .
-          docker push marcelo20/screenrecorder:latest
+      - name: Build and tag Docker image for React app
+        run: docker build -t marceloregistry.azurecr.io/screenrecorder:release -f Dockerfile .
 
-      # Deploy to Kubernetes
-      # - name: Configure kubectl
-      #   uses: azure/k8s-set-context@v1
-      #   with:
-      #     kubeconfig: ${{ secrets.KUBE_CONFIG }}
+      - name: Verify Docker images
+        run: docker images
 
-      # - name: Apply Kubernetes manifests
-      #   run: |
-      #     kubectl apply -f k8s-deployment.yaml -n resultados-space
+      - name: Push Docker image to Azure Container Registry
+        run: docker push marceloregistry.azurecr.io/screenrecorder:release
+
+      - name: Cleanup local Docker images
+        run: docker rmi marceloregistry.azurecr.io/screenrecorder:release
