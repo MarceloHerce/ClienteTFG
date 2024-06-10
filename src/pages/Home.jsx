@@ -23,6 +23,7 @@ function Home() {
     return (
         <>
             <HomeText openModal={openModal} />
+            <p>Se actualiza</p>
             <p>actualizacion</p>
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
