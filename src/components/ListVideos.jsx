@@ -1,21 +1,20 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import { useNavigate } from 'react-router-dom';
+import { FaCloudDownloadAlt } from "react-icons/fa";
+import VideoModal from './VideoModal';
 
 const apiUrl = import.meta.env.VITE_APP_USERAPI;
 function VideoList() {
     const [videos, setVideos] = useState([]);
     const [metadata, setMetadata] = useState({});
     const { jwt, setJwt } = useContext(AppContext);
-    const [expandedIndex, setExpandedIndex] = useState(null);
+    const [modalVideo, setModalVideo] = useState(null);
     const navigate = useNavigate();
-    /*if (!jwt) {
-        history.push('/home');
-    }*/
+
     useEffect(() => {
         fetchVideos();
     }, []);
-
     const fetchVideos = async () => {
         try {
             const response = await fetch(`${apiUrl}/get/media/user`, {
@@ -54,6 +53,14 @@ function VideoList() {
             }
         }));
     };
+    const handleDownload = (url, filename) => {
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
     const generateShareableLink = (sasUrl, fileName) => {
         const baseUrl = `${window.location.origin}/video`;
         const queryParams = new URLSearchParams({ sasUrl, fileName });
@@ -81,9 +88,14 @@ function VideoList() {
             console.error('Error fetching videos:', error);
         }
     }
+    const openModal = (video) => {
+        if (window.innerWidth >= 640) {
+            setModalVideo(video);
+        }
+    };
 
-    const toggleExpand = (index) => {
-        setExpandedIndex(expandedIndex === index ? null : index);
+    const closeModal = () => {
+        setModalVideo(null);
     };
 
     return (
@@ -92,10 +104,8 @@ function VideoList() {
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
                 {videos.map((video, index) => (
                     <li key={index} 
-                        className={`flex flex-col items-center bg-gray-800 shadow-md p-5 rounded-lg cursor-pointer ${
-                            expandedIndex === index ? 'sm:col-span-2 lg:col-span-2' : ''
-                        }`}
-                        onClick={() => toggleExpand(index)}
+                        className={`flex flex-col items-center bg-gray-800 shadow-md p-5 rounded-lg lg:cursor-pointer`}
+                        onClick={() => openModal(video)}
                     >
                         <h2 className="text-lg font-bold mb-2">{video.fileName}</h2> 
                         <video
@@ -108,18 +118,31 @@ function VideoList() {
                             Your browser does not support the video tag.
                         </video>
                         <div className='w-full flex justify-around items-center'>
-                            <button
-                                    onClick={() => navigator.clipboard.writeText(generateShareableLink(video.sasUrl, video.fileName))}
-                                    className="mt-2 bg-teal-500 text-white py-1 px-4 rounded"
-                                >
-                                Copy Link
+                            <div className='flex gap-3'>
+                                <button
+                                        onClick={(e) => {e.stopPropagation(); navigator.clipboard.writeText(generateShareableLink(video.sasUrl, video.fileName))}}
+                                        className="mt-2 bg-teal-500 text-white py-1 px-4 rounded focus:outline-none"
+                                    >
+                                    Copy Link
+                                </button>
+                                <button 
+                                    onClick={(e) => {e.stopPropagation(); handleDownload(video.sasUrl, `${video.fileName}.webm`)}} 
+                                    className="mt-2 bg-teal-50 text-white py-1 px-4 rounded focus:outline-none"
+                                    >
+                                    <FaCloudDownloadAlt className='text-black text-lg'/>
+                                </button>
+                            </div>
+                            <button onClick={(e) => {e.stopPropagation();  
+                                if (window.confirm('Are you sure you want to delete this video?')) {
+                                     deleteBlob(video.storageFileName);
+                                }}} className="mt-2 bg-red-500 text-white py-1 px-4 rounded">
+                                Delete
                             </button>
-                            <button onClick={() => {e.stopPropagation(); deleteBlob(video.storageFileName);}} className="mt-2 bg-red-500 text-white py-1 px-4 rounded">Delete</button>
                         </div>
-                        <p>{video.storageFileName}</p>
                     </li>
                 ))}
             </ul>
+            {modalVideo && <VideoModal video={modalVideo} isOpen={!!modalVideo} onClose={closeModal} className="sm:hidden"/>}
         </div>
     );
 }

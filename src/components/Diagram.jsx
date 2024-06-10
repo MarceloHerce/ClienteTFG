@@ -19,8 +19,7 @@ const Diagram = ({ photos, text }) => {
 
   return (
     <div className=" text-white p-6 rounded-lg">
-      <h2 className="text-2xl font-semibold mb-4 text-teal-200">Objectives:</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+      <div className={`grid ${photos.length === 1 ? 'place-items-center' : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 mb-4'}`}>
         {photos.map((photo, index) => (
           <img
             key={index}
@@ -31,7 +30,7 @@ const Diagram = ({ photos, text }) => {
           />
         ))}
       </div>
-      <p className="text-lg text-teal-50">{text}</p>
+      <p className="text-lg text-teal-50 pt-4">{text}</p>
       <Modal isOpen={isOpen} onClose={handleClose} photo={selectedPhoto} />
     </div>
   );

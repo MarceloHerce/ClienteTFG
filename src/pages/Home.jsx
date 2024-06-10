@@ -31,7 +31,7 @@ function Home() {
                       onClick={closeModal} 
                       className="p-2 text-teal-200 border-teal-100 hover:border-teal-700 bg-black"
                     >
-                      Close
+                      Cerrar
                     </button>
                   </div>
                   <LoginAndRegisterForm onLoginSuccess={closeModal}/>
