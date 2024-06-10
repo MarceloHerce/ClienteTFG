@@ -39,13 +39,13 @@ jobs:
           password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
 
       - name: Build and tag Docker image for React app
-        run: docker build -t marceloregistry.azurecr.io/screenrecorder:release -f Dockerfile .
+        run: docker build -t marceloregistry.azurecr.io/screenrecorder:latest -f Dockerfile .
 
       - name: Verify Docker images
         run: docker images
 
       - name: Push Docker image to Azure Container Registry
-        run: docker push marceloregistry.azurecr.io/screenrecorder:release
+        run: docker push marceloregistry.azurecr.io/screenrecorder:latest
 
       - name: Cleanup local Docker images
-        run: docker rmi marceloregistry.azurecr.io/screenrecorder:release
+        run: docker rmi marceloregistry.azurecr.io/screenrecorder:latest
