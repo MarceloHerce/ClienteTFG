@@ -84,7 +84,7 @@ Agradecer a los profesores la amplia formación en diversas tecnologías y herra
 
 ### Referencias
 - [Documentacion azure]()
-- [Documentacion MediaRecorderApi]()
+- [Documentacion MediaRecorderApi](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder)
 - []
 
 ### Licencias
