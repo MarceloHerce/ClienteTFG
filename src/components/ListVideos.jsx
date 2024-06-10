@@ -28,7 +28,7 @@ function VideoList() {
                     localStorage.removeItem(jwt);
                     setJwt('');
                     alert('Your session has expired. Please log in again.');
-                    navigate('/home');
+                    navigate('/');
                   } else {
                     throw new Error(`HTTP error! status: ${response.status}`);
                   }
@@ -62,7 +62,7 @@ function VideoList() {
         document.body.removeChild(link);
     };
     const generateShareableLink = (sasUrl, fileName) => {
-        const baseUrl = `${window.location.origin}/video`;
+        const baseUrl = `${apiUrl}/video`;
         const queryParams = new URLSearchParams({ sasUrl, fileName });
         return `${baseUrl}?${queryParams.toString()}`;
     };
@@ -121,7 +121,7 @@ function VideoList() {
                             <div className='flex gap-3'>
                                 <button
                                         onClick={(e) => {e.stopPropagation(); navigator.clipboard.writeText(generateShareableLink(video.sasUrl, video.fileName))}}
-                                        className="mt-2 bg-teal-500 text-white py-1 px-4 rounded focus:outline-none"
+                                        className="mt-2 bg-teal-500 text-white py-1 px-4 rounded hidden focus:outline-none"
                                     >
                                     Copy Link
                                 </button>

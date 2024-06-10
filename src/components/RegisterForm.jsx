@@ -1,5 +1,3 @@
-//import "./css/RegisterForm.css";
-
 import { FormProvider, useForm } from 'react-hook-form';
 import React, { useContext, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -99,9 +97,7 @@ function RegisterForm(){
                                 value: 20,
                                 message: "Max lenght 20"
                             },
-                            //validate: (value) => {
-                            //    return methods.watch('password') === value || "Password doesn`t macth";
-                            //}
+                            
                         })
                         }
                     />
@@ -127,9 +123,7 @@ function RegisterForm(){
                                 value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
                                 message: "Email is not valid"
                             },
-                            //validate: (value) => {
-                            //    return methods.watch('password') === value || "Password doesn`t macth";
-                            //}
+                            
                         })}
                     />
                     {

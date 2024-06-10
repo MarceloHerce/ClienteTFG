@@ -1,6 +1,7 @@
+
 # Titulo del proyecto
-#### Marcelo Herce Sanz
-##### Desarrollo de Aplicaciones Web (DAW)
+### Marcelo Herce Sanz
+#### Desarrollo de Aplicaciones Web (DAW)
 
 ## Indice
 - [Introducción](#introducción)
@@ -15,6 +16,7 @@
 - [Enlace a figma de la interfaz](#enlace-a-figma-de-la-interfaz)
 - [Conclusión](#conclusión)
 - [Contribuciones y agradecimientos](#contribuciones-y-agradecimientos)
+- [Referencias](#referencias)
 - [Licencias](#licencias)
 - [Contacto](#contacto)
 
@@ -45,6 +47,7 @@ Backend desarrollado con Springboot, centrado en Springsecurity para la gestión
 Base de datos relacional con MySQL.
 El proyecto se despliega en azure mediante el uso de Github actions en Kubernetes, mediante el
 uso de un Registry propio.
+Proxy inverso, para la conexion entre el front y la api.
 
 ### Funcionalidades
 Los dos pilares fundamentales del proyecto son MediaRecorderApi y Azure Storage Blob.
@@ -58,6 +61,7 @@ Primero se realizara un fork a los repositorios de github más abajo indicados.
 Para ejecutar el proyecto sin realizar niguna modificación sera necesario disponer de una cuenta en Azure, ya que el despliegue esta configurado para ello, además de que la funcionalidad de almacenamiento en la nube, no funcionaria.
 Como minimo sera necesario tener un Registry y Contenedor en Azure. Para el despliegue con kubernetes se debera crear un Cluster, una maquina virtual y una base de datos en la nube.
 Para setear las variables de  entorno se usara las variables secretas de Github.
+El frontal se despliegua en un app service en azure, el back en kubernetes, se toma la ip del load balancer y se utiliza para configurar el proxy inverso en la maquina virtual.
 
 ### Guía de uso
 Una vez se encuentre todo desplegado y conectado, deberemos iniciar sesion para poder grabar pantalla. Para grabar pantalla sera obligatorio asignar un nombre, una vez se haya introducido el nombre, pulsaremos en grabar pantalla y selecionaremos los ajustes deseados. Cuando queramos detener la grabación pulsaremos en detener y posteriormente en dejar de compartir. Entonces tendremos dos opciones, descargar el video, o subirlo a azure. Una vez el video se haya subido podremos verlo, compartirlo, borrarlo o descargarlo.
@@ -74,13 +78,22 @@ BBDD: [ScreenrecorderDatabase](https://github.com/MarceloHerce/BBDDTFG)
 [Screenrecorder figma](https://github.com/MarceloHerce/ClienteTFG)
 
 ### Conclusión
+Debo aprender a organizarme mejor, todavia me faltan conocimientos teoricos, de programacion y arquitectura. 
+Debo de tener más prevision en los posibles fallos, durante la vida util del software.
+He aprendido bastante con el proyecto, y como todas las peleas que he tenido con el codigo me empujan a aprender más, aunque esta ha estado cerca de matarme.
 
 ### Contribuciones y agradecimientos.
 Agradecer a Rafa, María y Pablo, ayudarme a centrarme con sus preguntas y dudas.
 Agradecer a Alberto los tips para el despliegue de Kubernetes en Azure.
 Agradecer a los profesores la amplia formación en diversas tecnologías y herramientas.
 
+### Referencias
+- [Documentacion azure blob storage](https://learn.microsoft.com/en-us/rest/api/storageservices/blob-service-rest-api)
+- [Documentacion MediaRecorderApi](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder)
+- [Despliegue Azure](https://www.youtube.com/playlist?list=PLtJgrbr_ZgoRFRmUdGsrUMPS-AYvdhQMD)
+
 ### Licencias
+Uso libre
 
 ### Contacto
 marcelohercesanz@gmail.com
