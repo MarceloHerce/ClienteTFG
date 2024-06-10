@@ -13,6 +13,7 @@ import VideoRecorder from "../components/PruebaAlfa";
 import VideoList from "../components/ListVideos";
 import { useNavigate } from 'react-router-dom';
 import Desespera2 from "../components/AboutComponents/Diagrama";
+import Desesperao from "../components/a";
 
 function Profile() {
     const { jwt } = useContext(AppContext);
@@ -28,6 +29,9 @@ function Profile() {
         <>
            <div className="mt-4">
             <VideoRecorder></VideoRecorder>
+            <CaptureScreen></CaptureScreen>
+            <Desesperao></Desesperao>
+            <Desespera2></Desespera2>
             <VideoList></VideoList>
            </div>
         </>

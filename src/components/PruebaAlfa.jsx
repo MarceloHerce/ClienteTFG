@@ -24,6 +24,10 @@ const VideoRecorder = () => {
       alert('Please enter a file name before starting the recording.');
       return;
     }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
+      alert('getDisplayMedia API is not supported in this browser.');
+      return;
+    }
     try {
       const stream = await navigator.mediaDevices.getDisplayMedia({
         video: { mediaSource: 'screen' },
