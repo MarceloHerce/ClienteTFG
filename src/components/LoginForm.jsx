@@ -34,6 +34,7 @@ function LoginForm({ onLoginSuccess }){
             };
             console.log(data)
             console.log(convertedData)
+            console.log(`${apiUrl}/auth/login`)
             try {
                 fetch(`${apiUrl}/auth/login`, {
                     method: 'POST',
