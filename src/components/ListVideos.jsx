@@ -62,7 +62,7 @@ function VideoList() {
         document.body.removeChild(link);
     };
     const generateShareableLink = (sasUrl, fileName) => {
-        const baseUrl = `${window.location.origin}/video`;
+        const baseUrl = `${apiUrl}/video`;
         const queryParams = new URLSearchParams({ sasUrl, fileName });
         return `${baseUrl}?${queryParams.toString()}`;
     };

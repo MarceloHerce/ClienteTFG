@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   assetsInclude: ['**/*.glb'],
   server: {
-    host: true, // This allows external access
-    port: 5173, // Specify the port
+    host: true, 
+    port: 5173,
   },
 })

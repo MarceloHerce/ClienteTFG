@@ -5,7 +5,7 @@ function VideoPlayerPage() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const sasUrl = queryParams.get('sasUrl');
-    const fileName = queryParams.get('fileName'); // Asumiendo que también estás pasando el nombre del archivo
+    const fileName = queryParams.get('fileName'); 
 
     if (!sasUrl) {
         return <p>No video URL provided.</p>;

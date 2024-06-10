@@ -83,9 +83,9 @@ Agradecer a Alberto los tips para el despliegue de Kubernetes en Azure.
 Agradecer a los profesores la amplia formación en diversas tecnologías y herramientas.
 
 ### Referencias
-- [Documentacion azure]()
+- [Documentacion azure blob storage](https://learn.microsoft.com/en-us/rest/api/storageservices/blob-service-rest-api)
 - [Documentacion MediaRecorderApi](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder)
-- []
+- [Despliegue Azure](https://www.youtube.com/playlist?list=PLtJgrbr_ZgoRFRmUdGsrUMPS-AYvdhQMD)
 
 ### Licencias
 Uso libre
