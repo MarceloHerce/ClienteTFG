@@ -61,6 +61,7 @@ Primero se realizara un fork a los repositorios de github más abajo indicados.
 Para ejecutar el proyecto sin realizar niguna modificación sera necesario disponer de una cuenta en Azure, ya que el despliegue esta configurado para ello, además de que la funcionalidad de almacenamiento en la nube, no funcionaria.
 Como minimo sera necesario tener un Registry y Contenedor en Azure. Para el despliegue con kubernetes se debera crear un Cluster, una maquina virtual y una base de datos en la nube.
 Para setear las variables de  entorno se usara las variables secretas de Github.
+El frontal se despliegua en un app service en azure, el back en kubernetes, se toma la ip del load balancer y se utiliza para configurar el proxy inverso en la maquina virtual.
 
 ### Guía de uso
 Una vez se encuentre todo desplegado y conectado, deberemos iniciar sesion para poder grabar pantalla. Para grabar pantalla sera obligatorio asignar un nombre, una vez se haya introducido el nombre, pulsaremos en grabar pantalla y selecionaremos los ajustes deseados. Cuando queramos detener la grabación pulsaremos en detener y posteriormente en dejar de compartir. Entonces tendremos dos opciones, descargar el video, o subirlo a azure. Una vez el video se haya subido podremos verlo, compartirlo, borrarlo o descargarlo.
