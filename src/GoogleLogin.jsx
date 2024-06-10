@@ -52,7 +52,7 @@ function LoginGoogle({ onLoginSuccess }) {
                     setJwt(credentialResponse.credential);
                     console.log(credentialResponse.credential);
                     insertUserIfNotExist(credentialResponse.credential);
-                    //onLoginSuccess();
+                    onLoginSuccess();
                 }}
                 onError={() => {
                     console.log("Login Failed")
