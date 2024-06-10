@@ -7,6 +7,10 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 const apiUrl = import.meta.env.VITE_APP_USERAPI;
 function RegisterForm(){
     const [showPassword, setShowPassword] = useState({ password: false, confirmPassword: false });
+    const [registered, setRegistered] = useState('');
+    const [userExist, setUserExist] = useState('');
+
+    
 
     const togglePasswordVisibility = (field) => {
         setShowPassword((prevState) => ({
@@ -19,6 +23,8 @@ function RegisterForm(){
 
     console.log(methods.formState.errors)
     const onSubmit =methods.handleSubmit((data)=> {
+        setRegistered('');
+        setUserExist('');
         console.log(data)
         if (Object.keys(methods.formState.errors).length === 0) {
             console.log("Sending request")
@@ -30,20 +36,39 @@ function RegisterForm(){
             };
             console.log(data)
             console.log(convertedData)
-            fetch(`${apiUrl}/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(convertedData),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+            try {
+                fetch(`${apiUrl}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(convertedData),
+                  })
+                    .then(response => {
+                      if (!response.ok) {
+                        if (response.status === 409) {
+                          throw new Error('409');
+                        } else {
+                          throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                      }
+                      setRegistered(true);
+                      return response.json();
+                    })
+                    .then(data => {
+                      //console.log('Success:', data);
+                    })
+                    .catch(error => {
+                      if (error.message === '409') {
+                        setUserExist("exist")
+                        console.log('ola');
+                      } else {
+                        console.error('Error:', error.message);
+                      }
+                    });
+            } catch (error) {
+                setRegistered(false)
+            }
         } else {
             console.log("Form has errors. Cannot submit.")
         }
@@ -52,6 +77,7 @@ function RegisterForm(){
     return (
         <FormProvider {...methods}>
             <form  className="flex-1 flex-col justify-center items-center" onSubmit={onSubmit}>
+                {}
                 <div className='flex flex-col w-full mb-4'>
                     {/*name*/}
                     <label htmlFor=" text" className='self-start mb-1 text-teal-100'>
@@ -72,7 +98,10 @@ function RegisterForm(){
                             maxLength: {
                                 value: 20,
                                 message: "Max lenght 20"
-                            }
+                            },
+                            //validate: (value) => {
+                            //    return methods.watch('password') === value || "Password doesn`t macth";
+                            //}
                         })
                         }
                     />
@@ -97,7 +126,10 @@ function RegisterForm(){
                             pattern: {
                                 value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
                                 message: "Email is not valid"
-                            }
+                            },
+                            //validate: (value) => {
+                            //    return methods.watch('password') === value || "Password doesn`t macth";
+                            //}
                         })}
                     />
                     {
@@ -212,7 +244,10 @@ function RegisterForm(){
                     }
                 </div>
                 
-                
+                {(userExist && Object.keys(methods.formState.errors).length === 0) && <p className="text-red-500">Username or email exist</p>}
+
+                {registered === true && <p className="text-green-500">Login successful</p>}
+                {registered === false && <p className="text-red-500">Login error</p>}
 
                 <button type="submit" className='w-2/3 text-teal-200'>Send</button>
             </form>

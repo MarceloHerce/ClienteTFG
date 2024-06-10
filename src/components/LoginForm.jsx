@@ -8,6 +8,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 const apiUrl = import.meta.env.VITE_APP_USERAPI;
 function LoginForm({ onLoginSuccess }){
     const [showPassword, setShowPassword] = useState(false);
+    const [loginError, setLoginError] = useState("");
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -17,6 +18,7 @@ function LoginForm({ onLoginSuccess }){
     const methods = useForm();
 
     const onSubmit =methods.handleSubmit((data)=> {
+        setLoginError("")
         console.log("JWT DEFAULT: " + jwt);
         console.log("Errors:")
         console.log(methods.formState.errors)
@@ -32,25 +34,41 @@ function LoginForm({ onLoginSuccess }){
             };
             console.log(data)
             console.log(convertedData)
-            fetch(`${apiUrl}/auth/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(convertedData),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                setJwt(data.token)
-                setTimeout(function() {
-                  }, 4000);
-                console.log("JWT loged: " + jwt);
-                onLoginSuccess();
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+            try {
+                fetch(`${apiUrl}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(convertedData),
+                })
+                .then(response => {
+                    if(!response.ok){
+                        if (response.status === 403) {
+                            setLoginError({message: "Username or passwor incorrect", status: '403'})
+                            throw new Error('403');
+                        } 
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                    setJwt(data.token)
+                    setTimeout(function() {
+                      }, 4000);
+                    console.log("JWT loged: " + jwt);
+                    onLoginSuccess();
+                })
+                .catch((error) => {
+                    if (error.message === '403') {
+                        console.log('ola');
+                    }
+                    console.error('Error:', error);
+                });
+            } catch (error) {
+                setLoginError({message: "Server error", status: '500'})
+            }
+            
         } else {
             console.log("Form has errors. Cannot submit.")
         }
@@ -119,7 +137,7 @@ function LoginForm({ onLoginSuccess }){
                 </div>
                 
                 
-
+                {loginError && <p className="text-red-500">{loginError.message}</p>}
                 <button type="submit" className='w-2/3 text-teal-200'>Send</button>
             </form>
         </FormProvider>
