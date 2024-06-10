@@ -9,7 +9,6 @@ const Modal = ({ isOpen, onClose, photo }) => {
       body.style.overflow = '';
     }
 
-    // Cleanup when the component is unmounted or if isOpen changes
     return () => {
       body.style.overflow = '';
     };

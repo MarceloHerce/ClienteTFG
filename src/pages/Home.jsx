@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import Header from "../components/Header";
 import App from "../App";
 import LoginGoogle from "../GoogleLogin";
-import CaptureScreen from "../components/Button";
 import RegisterForm from "../components/RegisterForm";
-import VideoPlayer from "../components/PruebaGetVideo";
-import BtnPrueba from "../components/PruebaPost";
-import AboutUs from "./AboutUs";
 import HomeText from "../components/HomeText";
 import LoginAndRegisterForm from '../components/LoginAndRegisterForm';
 

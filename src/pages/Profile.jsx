@@ -1,7 +1,7 @@
 import React, { useContext, useEffect} from 'react';
 import { AppContext } from '../context/AppContext';
 import { jwtDecode } from "jwt-decode";
-import VideoRecorder from "../components/PruebaAlfa";
+import VideoRecorder from "../components/VideoRecorder";
 import VideoList from "../components/ListVideos";
 import { useNavigate } from 'react-router-dom';
 

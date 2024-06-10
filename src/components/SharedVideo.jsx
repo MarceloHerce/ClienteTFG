@@ -12,7 +12,7 @@ function VideoPlayerPage() {
     }
 
     return (
-        <div className="container mx-auto p-6">
+        <div className="container mx-auto p-6 hidden">
             <h1 className="text-3xl font-bold mb-6">{fileName || 'Video'}</h1>
             <video width="auto" height="auto" controls src={sasUrl}>
                 Your browser does not support the video tag.
