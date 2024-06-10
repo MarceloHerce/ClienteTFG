@@ -1,23 +1,7 @@
-```java
-- Título creativo y llamativo. Debe aparecer el título del
-proyecto, la denominación del ciclo (DAW), y los nombres y
-apellidos del alumno.
-- Índice con enlace a cada apartado.
-- Introducción (Descripción del proyecto, Justificación,
-Objetivos, Motivación...).
-- Funcionalidades del proyecto y tecnologías utilizadas.
-- Guía de instalación.
-- Guía de uso.
-- Enlace a la documentación.
-- Enlace a figma de la interfaz.
-- Conclusión.
-- Contribuciones, agradecimientos, referencias.
-- Licencias.
-- Contacto.
-```
+
 # Titulo del proyecto
-#### Marcelo Herce Sanz
-##### Desarrollo de Aplicaciones Web (DAW)
+### Marcelo Herce Sanz
+#### Desarrollo de Aplicaciones Web (DAW)
 
 ## Indice
 - [Introducción](#introducción)
@@ -32,6 +16,7 @@ Objetivos, Motivación...).
 - [Enlace a figma de la interfaz](#enlace-a-figma-de-la-interfaz)
 - [Conclusión](#conclusión)
 - [Contribuciones y agradecimientos](#contribuciones-y-agradecimientos)
+- [Referencias](#referencias)
 - [Licencias](#licencias)
 - [Contacto](#contacto)
 
@@ -97,7 +82,13 @@ Agradecer a Rafa, María y Pablo, ayudarme a centrarme con sus preguntas y dudas
 Agradecer a Alberto los tips para el despliegue de Kubernetes en Azure.
 Agradecer a los profesores la amplia formación en diversas tecnologías y herramientas.
 
+### Referencias
+- [Documentacion azure]()
+- [Documentacion MediaRecorderApi]()
+- []
+
 ### Licencias
+Uso libre
 
 ### Contacto
 marcelohercesanz@gmail.com
