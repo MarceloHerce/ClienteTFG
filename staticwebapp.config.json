@@ -1,0 +1,34 @@
+{
+    "routes": [
+      {
+        "route": "/",
+        "rewrite": "/index.html"
+      },
+      {
+        "route": "/aboutUs",
+        "rewrite": "/index.html"
+      },
+      {
+        "route": "/profile",
+        "rewrite": "/index.html"
+      },
+      {
+        "route": "/video",
+        "rewrite": "/index.html"
+      },
+      {
+        "route": "/*",
+        "rewrite": "/index.html"
+      }
+    ],
+    "navigationFallback": {
+      "rewrite": "/index.html",
+      "exclude": ["/static/*"]
+    },
+    "responseOverrides": {
+      "404": {
+        "rewrite": "/index.html"
+      }
+    }
+  }
+  
