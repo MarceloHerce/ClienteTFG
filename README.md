@@ -47,6 +47,7 @@ Backend desarrollado con Springboot, centrado en Springsecurity para la gestión
 Base de datos relacional con MySQL.
 El proyecto se despliega en azure mediante el uso de Github actions en Kubernetes, mediante el
 uso de un Registry propio.
+Proxy inverso, para la conexion entre el front y la api.
 
 ### Funcionalidades
 Los dos pilares fundamentales del proyecto son MediaRecorderApi y Azure Storage Blob.
