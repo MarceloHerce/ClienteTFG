@@ -6,28 +6,28 @@ import RegisterForm from "../components/RegisterForm";
 import VideoPlayer from "../components/PruebaGetVideo";
 import BtnPrueba from "../components/PruebaPost";
 import AboutUs from "./AboutUs";
-import React, { useContext } from 'react';
+import React, { useContext, useEffect} from 'react';
 import { AppContext } from '../context/AppContext';
 import { jwtDecode } from "jwt-decode";
-import Desesperao from "../components/PruebaAlfa";
+import VideoRecorder from "../components/PruebaAlfa";
 import VideoList from "../components/ListVideos";
+import { useNavigate } from 'react-router-dom';
+import Desespera2 from "../components/AboutComponents/Diagrama";
 
 function Profile() {
     const { jwt } = useContext(AppContext);
-    /*if (!jwt) {
-        return <p>No JWT token found</p>;
-    }*/
-    console.log(jwt)
-    const capitalizeFirstLetter = (string) => {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
+    const navigate = useNavigate();
 
-    const capitalizedSub = capitalizeFirstLetter(jwtDecode("eyJhbGciOiJIUzI1NiJ9.eyJjYW1wb1Byb3BpbyI6W3siYXV0aG9yaXR5IjoiVVNFUiJ9XSwic3ViIjoibWFyY2VsbyIsImlhdCI6MTcxNjMwODA2MSwiZXhwIjoxNzE2MzEwOTQxfQ.-Uy4a7ICxSKq_xAiSSowQfj13l0q0SADs-yLIOd1UCc").sub);
+    useEffect(() => {
+        if (!jwt) {
+          navigate('/');
+        }
+      }, [jwt, navigate]);
+      
     return (
         <>
-           <h2>Videos de {capitalizedSub}</h2>
-           <div>
-            <Desesperao></Desesperao>
+           <div className="mt-4">
+            <VideoRecorder></VideoRecorder>
             <VideoList></VideoList>
            </div>
         </>

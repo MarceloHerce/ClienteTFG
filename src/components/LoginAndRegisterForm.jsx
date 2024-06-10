@@ -15,13 +15,13 @@ function LoginAndRegisterForm({ onLoginSuccess }) {
         setIsLogin(!isLogin); 
     };
   return (
-    <div className='w-2/4 m-auto'>
+    <div className='w-full m-auto px-1'>
         {!isLogin ? <RegisterForm /> : <div className='flex flex-col '> <LoginGoogle onLoginSuccess={onLoginSuccess}/> <LoginForm onLoginSuccess={onLoginSuccess}/> </div>}
-        <div>
+        <div className='w-full'>
             {isLogin ? (
-            <p>¿No tienes una cuenta? <a href="#" onClick={handleToggleLogin}>Regístrate aquí</a></p>
+            <p className='text-teal-50'>¿No tienes una cuenta? <a href="#" onClick={handleToggleLogin} className='text-teal-200'>Regístrate aquí</a></p>
             ) : (
-            <p>¿Ya tienes una cuenta? <a href="#" onClick={handleToggleLogin}>Inicia sesión aquí</a></p>
+            <p className='text-teal-50'>¿Ya tienes una cuenta? <a href="#" onClick={handleToggleLogin} className='text-teal-200'>Inicia sesión aquí</a></p>
             )}
         </div>
     </div>
