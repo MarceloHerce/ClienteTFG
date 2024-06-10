@@ -11,7 +11,6 @@ import Profile from "../pages/Profile";
 import VideoPlayerPage from "../components/SharedVideo";
 import Logout from "../components/Logout";
 import { AppContext } from '../context/AppContext';
-import DarkLigthMode from "../components/DarkLigth";
 
 
 function Root() {
