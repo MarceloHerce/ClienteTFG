@@ -23,7 +23,7 @@
     ],
     "navigationFallback": {
       "rewrite": "/index.html",
-      "exclude": ["/static/*"]
+      "exclude": ["/images/*.{png,jpg,gif}", "/css/*"]
     },
     "responseOverrides": {
       "404": {
