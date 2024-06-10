@@ -76,6 +76,9 @@ BBDD: [ScreenrecorderDatabase](https://github.com/MarceloHerce/BBDDTFG)
 [Screenrecorder figma](https://github.com/MarceloHerce/ClienteTFG)
 
 ### Conclusión
+Debo aprender a organizarme mejor, todavia me faltan conocimientos teoricos, de programacion y arquitectura. 
+Debo de tener más prevision en los posibles fallos, durante la vida util del software.
+He aprendido bastante con el proyecto, y como todas las peleas que he tenido con el codigo me empujan a aprender más, aunque esta ha estado cerca de matarme.
 
 ### Contribuciones y agradecimientos.
 Agradecer a Rafa, María y Pablo, ayudarme a centrarme con sus preguntas y dudas.

@@ -1,14 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import './index.css'
-import Login from './GoogleLogin.jsx'
 
 import {GoogleOAuthProvider } from '@react-oauth/google'
-import ScreenRecorder from './components/RecordButton.jsx'
-import CaptureScreen from './components/Button.jsx'
 import { AppContext, AppContextProvider } from './context/AppContext.jsx'
-import Header from './components/Header.jsx'
 import AppRouter from './router/router.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
