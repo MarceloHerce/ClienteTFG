@@ -4,6 +4,7 @@ import { AppContext } from './context/AppContext';
 import { useContext } from 'react';
 
 
+const apiUrl = import.meta.env.VITE_APP_USERAPI;
 function LoginGoogle({ onLoginSuccess }) {
     const {jwt,setJwt} = useContext(AppContext);
     const insertUserIfNotExist = async (jwt) => {
@@ -19,7 +20,7 @@ function LoginGoogle({ onLoginSuccess }) {
             country: 'defaultCountry'  
         };
     
-        fetch('http://localhost:8080/auth/register/google', {
+        fetch(`${apiUrl}/auth/register/google`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
